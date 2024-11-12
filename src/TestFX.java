@@ -1,17 +1,15 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
  
 public class TestFX extends Application {
     Label label;
-    TextField field;
-    Button button;
+    ToggleGroup group;
  
     public static void main(String[] args) {
         launch(args);
@@ -20,19 +18,25 @@ public class TestFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         label = new Label("This is JavaFX!");
-        field = new TextField();
-        button = new Button("Click");
-        // アクションイベント処理の組み込み
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                String msg = "you typed: " + field.getText();
-                label.setText(msg);
-            }
+        group = new ToggleGroup();
+        RadioButton btn1 = new RadioButton("Male");
+        btn1.setToggleGroup(group);
+        btn1.setSelected(true);
+        RadioButton btn2 = new RadioButton("Female");
+        btn2.setToggleGroup(group);
+        btn1.setOnAction((ActionEvent)->{
+            label.setText("you are Male?");
         });
+        btn2.setOnAction((ActionEvent)->{
+            label.setText("you are Female?");
+        });
+         
         BorderPane pane = new BorderPane();
         pane.setTop(label);
-        pane.setCenter(field);
-        pane.setBottom(button);
+        FlowPane flow = new FlowPane();
+        flow.getChildren().add(btn1);
+        flow.getChildren().add(btn2);
+        pane.setCenter(flow);
         Scene scene = new Scene(pane, 320, 120);
         stage.setScene(scene);
         stage.show();
