@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
  
+<?import java.lang.*?>
 <?import java.net.URL ?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
  
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="FXTest.AppController">
     <stylesheets>
         <URL value="@test.css" />
     </stylesheets>
     <top>
         <Label fx:id="label1" text="This is FXML!" />
     </top>
+    <center>
+        <TextField fx:id="field1" />
+    </center>
+    <bottom>
+        <Button fx:id="btn1" onAction="#doAction" text="Click" />
+    </bottom>
 </BorderPane>

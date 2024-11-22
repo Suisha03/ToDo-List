@@ -1,5 +1,7 @@
 import javax.swing.JFrame;
 
+import FXTest.TestFX;
+
 public class App {
     public static void main(String[] args){
         try{
