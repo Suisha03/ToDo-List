@@ -1,3 +1,4 @@
+package Unused;
 import javax.swing.JFrame;
 
 import FXTest.TestFX;
