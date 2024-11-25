@@ -1,0 +1,13 @@
+.custom-vbox{
+    -fx-alignment: center;
+}
+
+.custom-task{
+    -fx-background-color  : rgb(187, 185, 185);
+    -fx-padding: 0 0 0 5;
+}
+
+.custom-task > .box {
+    -fx-background-color  : white;
+    -fx-border-radius: 1px;
+}

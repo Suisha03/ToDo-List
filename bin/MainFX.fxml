@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="95.0" prefWidth="227.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="95.0" prefWidth="227.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" styleClass="custom-vbox">
+   <stylesheets>
+      <URL value="@MainCSS.css" />
+   </stylesheets>
    <children>
-      <CheckBox mnemonicParsing="false" text="CheckBox" />
-      <CheckBox mnemonicParsing="false" prefWidth="127.0" text="CheckBox" />
+      <CheckBox mnemonicParsing="false" styleClass="custom-task" text="task1" />
+      <CheckBox mnemonicParsing="false" styleClass="custom-task" text="task2" />
    </children>
 </VBox>
