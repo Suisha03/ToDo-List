@@ -18,7 +18,11 @@ public class Main extends Application {
 
         Pane root = (Pane) fxmlLoader.load();
 
-        Scene scene = new Scene(root, 200, 50);
+        Scene scene = new Scene(root, 300, 300);
+
+        //ステージの最小サイズを設定
+        primaryStage.minWidthProperty().set(300);
+        primaryStage.minHeightProperty().set(300);
 
         primaryStage.setScene(scene);
         primaryStage.show();
