@@ -16,6 +16,9 @@ public class Main extends Application {
         URL location = getClass().getResource("MainFX.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
 
+        //チェックボックスが選択されたときの動作
+        
+
         Pane root = (Pane) fxmlLoader.load();
 
         Scene scene = new Scene(root, 300, 300);
