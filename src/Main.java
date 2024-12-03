@@ -15,11 +15,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         URL location = getClass().getResource("MainFX.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
-
-        //チェックボックスが選択されたときの動作
-        
-
         Pane root = (Pane) fxmlLoader.load();
+        
+        // コントローラーを取得して Stage を渡す
+        FXMLController controller = fxmlLoader.getController();
+        controller.setStage(primaryStage);
 
         Scene scene = new Scene(root, 300, 300);
 
