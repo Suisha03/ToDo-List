@@ -44,12 +44,20 @@ public class FXMLController {
 
     public void setupCheckBox(CheckBox checkBox){
         Text text = new Text(checkBox.getText());
-        text.setWrappingWidth(windowWidth); //自動改行のための幅を設定
+        text.setWrappingWidth(windowWidth-50); //自動改行のための幅を設定
         HBox hbox = new HBox(text);
         hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.setPadding(new Insets(0,0,0,5)); //左側に余白を設定
         checkBox.setGraphic(hbox);
         checkBox.setText(""); // CheckBoxのテキストを空にする
+
+        // Textノードにクリックイベントを設定し、CheckBoxの選択状態を変更しないようにする
+        hbox.setOnMouseClicked(event -> {
+            // CheckBoxの選択状態を反転(クリックイベントを無効化したいため)
+            boolean stateCheckbox = !checkBox.isSelected();
+            checkBox.setSelected(stateCheckbox);
+        });
+
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
                 text.setStrikethrough(true);
