@@ -25,6 +25,7 @@ public class FXMLController {
             double windowWidth = stage.getWidth();
             // CheckBoxの設定
             setupCheckBoxes(windowWidth);
+            //updateWrappingWidth(windowWidth);
         });
 
         // ウィンドウの幅が変更された場合に改行位置を調節
@@ -56,16 +57,16 @@ public class FXMLController {
         for(CheckBox checkBox : checkBoxes){
             setupCheckBox(checkBox, windowWidth);
         }
+        updateWrappingWidth(windowWidth); //幅変更はこっちで行う
     }
 
     
 
     public void setupCheckBox(CheckBox checkBox, double windowWidth){
         Text text = new Text(checkBox.getText());
-        text.setWrappingWidth(windowWidth-50); //自動改行のための幅を設定
         HBox hbox = new HBox(text);
         hbox.setAlignment(Pos.CENTER_LEFT);
-        hbox.setPadding(new Insets(0,0,0,5)); //左側に余白を設定
+        hbox.setPadding(new Insets(0,0,0,5)); //テキスト左側に余白を設定
         checkBox.setGraphic(hbox);
         checkBox.setText(""); // CheckBoxのテキストを空にする
 
@@ -92,7 +93,7 @@ public class FXMLController {
             HBox hbox = (HBox) checkBox.getGraphic();
             if(hbox != null){
                 Text text = (Text) hbox.getChildren().get(0);
-                text.setWrappingWidth(windowWidth - 50); // 自動改行のための幅を更新（余白を考慮）
+                text.setWrappingWidth(windowWidth - 60); // 自動改行のための幅を更新（余白を考慮）
             }   
         }
     }
