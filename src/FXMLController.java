@@ -2,47 +2,65 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FXMLController {
     @FXML
-    private CheckBox taskBox1;
-    @FXML
-    private CheckBox taskBox2;
-    @FXML
-    private HBox container;
+    private VBox checkBoxContainer;
 
     private Stage stage;
-
-    //ウィンドウの幅を保持する変数
-    double windowWidth;
+    private List<CheckBox> checkBoxes = new ArrayList<>();
 
     public void setStage(Stage stage){
         this.stage = stage;
         // Stageが表示された後にウィンドウサイズを取得
         stage.setOnShown(event -> {
-            windowWidth = stage.getWidth();
-            System.out.println("Window width: " + windowWidth);
+            double windowWidth = stage.getWidth();
             // CheckBoxの設定
-            setupCheckBox(taskBox1);
-            setupCheckBox(taskBox2);
+            setupCheckBoxes(windowWidth);
         });
 
         // ウィンドウの幅が変更された場合に改行位置を調節
         stage.widthProperty().addListener((observable, oldValue, newValue) -> {
             double newWidth = newValue.doubleValue();
-            System.out.println("New window width: " + newWidth);
-            updateWrappingWidth(taskBox1, newWidth);
-            updateWrappingWidth(taskBox2, newWidth);
+            updateWrappingWidth(newWidth);
         });
+    }
+
+    @FXML
+    public void initialize(){
+        //動的にcheckBoxを生成してリストに追加
+        addCheckBox("めっちゃ長い文章の場合どうなるかのテスト，aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        addCheckBox("task2");
+        for(int i = 0; i < 10; i++){
+            addCheckBox("task" + i);
+        }
+    }
+
+    private void addCheckBox(String text){
+        CheckBox checkBox = new CheckBox();
+        checkBox.setText(text);
+        checkBox.getStyleClass().add("custom-task");  // styleClassの設定
+        checkBoxes.add(checkBox);
+        checkBoxContainer.getChildren().add(checkBox);
+    }
+
+    private void setupCheckBoxes(double windowWidth){
+        for(CheckBox checkBox : checkBoxes){
+            setupCheckBox(checkBox, windowWidth);
+        }
     }
 
     
 
-    public void setupCheckBox(CheckBox checkBox){
+    public void setupCheckBox(CheckBox checkBox, double windowWidth){
         Text text = new Text(checkBox.getText());
         text.setWrappingWidth(windowWidth-50); //自動改行のための幅を設定
         HBox hbox = new HBox(text);
@@ -69,11 +87,13 @@ public class FXMLController {
         });
     }
 
-    public void updateWrappingWidth(CheckBox checkBox, double windowWidth) {
-        HBox hbox = (HBox) checkBox.getGraphic();
-        if(hbox != null){
-            Text text = (Text) hbox.getChildren().get(0);
-            text.setWrappingWidth(windowWidth - 50); // 自動改行のための幅を更新（余白を考慮）
+    public void updateWrappingWidth(double windowWidth) {
+        for(CheckBox checkBox : checkBoxes){
+            HBox hbox = (HBox) checkBox.getGraphic();
+            if(hbox != null){
+                Text text = (Text) hbox.getChildren().get(0);
+                text.setWrappingWidth(windowWidth - 50); // 自動改行のための幅を更新（余白を考慮）
+            }   
         }
     }
 }

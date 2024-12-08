@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.control.ScrollBar;
+
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -26,6 +28,7 @@ public class Main extends Application {
         //ステージの最小サイズを設定
         primaryStage.minWidthProperty().set(300);
         primaryStage.minHeightProperty().set(300);
+        
 
         primaryStage.setScene(scene);
         primaryStage.show();
