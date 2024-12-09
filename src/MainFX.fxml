@@ -10,9 +10,9 @@
       <URL value="@MainCSS.css" />
    </stylesheets>
    <children>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0">
+      <ScrollPane prefHeight="300.0" prefWidth="200.0" fx:id="fxScrollPane">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" fx:id="fxAnchorPane">
                <children>
                   <VBox fx:id="checkBoxContainer" />
                </children>

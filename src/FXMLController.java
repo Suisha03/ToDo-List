@@ -7,6 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,23 +17,35 @@ public class FXMLController {
     @FXML
     private VBox checkBoxContainer;
 
+    @FXML
+    private ScrollPane fxScrollPane;
+
     private Stage stage;
     private List<CheckBox> checkBoxes = new ArrayList<>();
 
     public void setStage(Stage stage){
         this.stage = stage;
+        int windowHeightMargin = 30;
         // Stageが表示された後にウィンドウサイズを取得
         stage.setOnShown(event -> {
             double windowWidth = stage.getWidth();
             // CheckBoxの設定
             setupCheckBoxes(windowWidth);
-            //updateWrappingWidth(windowWidth);
+            // ScrollPaneの設定
+            double windowHeight = stage.getHeight();
+            fxScrollPane.setPrefSize(windowWidth,windowHeight-windowHeightMargin);
         });
 
         // ウィンドウの幅が変更された場合に改行位置を調節
         stage.widthProperty().addListener((observable, oldValue, newValue) -> {
             double newWidth = newValue.doubleValue();
             updateWrappingWidth(newWidth);
+        });
+
+        // ウィンドウの高さが変更された場合にScrollPaneの高さを調節
+        stage.heightProperty().addListener((observable, oldValue, newValue) -> {
+            double newHeight = newValue.doubleValue();
+            fxScrollPane.setPrefHeight(newHeight-windowHeightMargin);
         });
     }
 
@@ -59,7 +73,6 @@ public class FXMLController {
         }
         updateWrappingWidth(windowWidth); //幅変更はこっちで行う
     }
-
     
 
     public void setupCheckBox(CheckBox checkBox, double windowWidth){
@@ -89,12 +102,15 @@ public class FXMLController {
     }
 
     public void updateWrappingWidth(double windowWidth) {
+        int windowWidthMargin = 60;
         for(CheckBox checkBox : checkBoxes){
             HBox hbox = (HBox) checkBox.getGraphic();
             if(hbox != null){
                 Text text = (Text) hbox.getChildren().get(0);
-                text.setWrappingWidth(windowWidth - 60); // 自動改行のための幅を更新（余白を考慮）
+                text.setWrappingWidth(windowWidth - windowWidthMargin); // 自動改行のための幅を更新（余白を考慮）
+                checkBox.setPrefWidth(windowWidth-windowWidthMargin);
             }   
         }
     }
+
 }
