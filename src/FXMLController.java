@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,9 @@ public class FXMLController {
 
     @FXML
     private AnchorPane fxAnchorPane;
+
+    @FXML
+    private TextField fxTaskAddingField;
 
     private Stage stage;
     private List<CheckBox> checkBoxes = new ArrayList<>();

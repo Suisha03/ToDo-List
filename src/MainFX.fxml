@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -10,14 +11,18 @@
       <URL value="@MainCSS.css" />
    </stylesheets>
    <children>
-      <ScrollPane prefHeight="300.0" prefWidth="200.0" fx:id="fxScrollPane">
+      <ScrollPane fx:id="fxScrollPane" prefHeight="300.0" prefWidth="200.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" fx:id="fxAnchorPane">
+          <AnchorPane fx:id="fxAnchorPane" minHeight="0.0" minWidth="0.0">
                <children>
                   <VBox fx:id="checkBoxContainer" />
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
+      <VBox prefHeight="150.0" styleClass="custom-vbox">
+         <children>
+            <TextField promptText="タスクを追加" fx:id="fxTaskAddingField" />
+         </children></VBox>
    </children>
 </VBox>
