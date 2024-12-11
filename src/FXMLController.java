@@ -20,6 +20,9 @@ public class FXMLController {
     @FXML
     private ScrollPane fxScrollPane;
 
+    @FXML
+    private AnchorPane fxAnchorPane;
+
     private Stage stage;
     private List<CheckBox> checkBoxes = new ArrayList<>();
 
@@ -33,7 +36,9 @@ public class FXMLController {
             setupCheckBoxes(windowWidth);
             // ScrollPaneの設定
             double windowHeight = stage.getHeight();
-            fxScrollPane.setPrefSize(windowWidth,windowHeight-windowHeightMargin);
+            fxScrollPane.setPrefSize(windowWidth-100,windowHeight-windowHeightMargin);
+            // AnchorPaneの設定(機能してなさそう)
+            fxAnchorPane.setPrefWidth(windowWidth-90);
         });
 
         // ウィンドウの幅が変更された場合に改行位置を調節
@@ -79,15 +84,15 @@ public class FXMLController {
         Text text = new Text(checkBox.getText());
         HBox hbox = new HBox(text);
         hbox.setAlignment(Pos.CENTER_LEFT);
-        hbox.setPadding(new Insets(0,0,0,5)); //テキスト左側に余白を設定
+        hbox.setPadding(new Insets(0,0,0,5));      //テキスト左側に余白を設定
         checkBox.setGraphic(hbox);
-        checkBox.setText(""); // CheckBoxのテキストを空にする
+        checkBox.setText("");                // CheckBoxのテキストを空にする
+        checkBox.setPadding(new Insets(0,0,0,5));  // CheckBoxの左側に余白を設定
 
         // Textノードにクリックイベントを設定し、CheckBoxの選択状態を変更しないようにする
         hbox.setOnMouseClicked(event -> {
             // CheckBoxの選択状態を反転(クリックイベントを無効化したいため)
-            boolean stateCheckbox = !checkBox.isSelected();
-            checkBox.setSelected(stateCheckbox);
+            checkBox.setSelected(!checkBox.isSelected());
         });
 
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -108,7 +113,7 @@ public class FXMLController {
             if(hbox != null){
                 Text text = (Text) hbox.getChildren().get(0);
                 text.setWrappingWidth(windowWidth - windowWidthMargin); // 自動改行のための幅を更新（余白を考慮）
-                checkBox.setPrefWidth(windowWidth-windowWidthMargin);
+                checkBox.setPrefWidth(windowWidth - windowWidthMargin);
             }   
         }
     }
