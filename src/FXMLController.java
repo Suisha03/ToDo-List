@@ -36,13 +36,14 @@ public class FXMLController {
         // Stageが表示された後にウィンドウサイズを取得
         stage.setOnShown(event -> {
             double windowWidth = stage.getWidth();
-            // CheckBoxの設定
-            setupCheckBoxes(windowWidth);
             // ScrollPaneの設定
             double windowHeight = stage.getHeight();
             fxScrollPane.setPrefSize(windowWidth-100,windowHeight-windowHeightMargin);
             // AnchorPaneの設定(機能してなさそう)
             fxAnchorPane.setPrefWidth(windowWidth-90);
+
+            // initializeメソッドを呼び出し、windowWidthを渡す
+            initialize(windowWidth);
         });
 
         // ウィンドウの幅が変更された場合に改行位置を調節
@@ -59,30 +60,30 @@ public class FXMLController {
     }
 
     @FXML
-    public void initialize(){
+    public void initialize(double windowWidth){
         //動的にcheckBoxを生成してリストに追加
-        addCheckBox("めっちゃ長い文章の場合どうなるかのテスト，aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        addCheckBox("task2");
+        addCheckBox("めっちゃ長い文章の場合どうなるかのテスト，aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", windowWidth);
+        addCheckBox("task2", windowWidth);
         for(int i = 0; i < 10; i++){
-            addCheckBox("task" + i);
+            addCheckBox("task" + i, windowWidth);
         }
+
+        // TextFieldにエンターキーが押されたときのイベントハンドラを設定
+        fxTaskAddingField.setOnAction(event -> {
+            String text = fxTaskAddingField.getText();
+            addCheckBox(text, windowWidth);
+            fxTaskAddingField.clear(); // テキストフィールドをクリア
+        });
     }
 
-    private void addCheckBox(String text){
+    private void addCheckBox(String text, double windowWidth){
         CheckBox checkBox = new CheckBox();
         checkBox.setText(text);
         checkBox.getStyleClass().add("custom-task");  // styleClassの設定
         checkBoxes.add(checkBox);
         checkBoxContainer.getChildren().add(checkBox);
+        setupCheckBox(checkBox, windowWidth);           //CheckBoxのレイアウト設定
     }
-
-    private void setupCheckBoxes(double windowWidth){
-        for(CheckBox checkBox : checkBoxes){
-            setupCheckBox(checkBox, windowWidth);
-        }
-        updateWrappingWidth(windowWidth); //幅変更はこっちで行う
-    }
-    
 
     public void setupCheckBox(CheckBox checkBox, double windowWidth){
         Text text = new Text(checkBox.getText());
