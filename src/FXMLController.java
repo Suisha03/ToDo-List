@@ -39,11 +39,11 @@ public class FXMLController {
             // ScrollPaneの設定
             double windowHeight = stage.getHeight();
             fxScrollPane.setPrefSize(windowWidth-100,windowHeight-windowHeightMargin);
-            // AnchorPaneの設定(機能してなさそう)
-            fxAnchorPane.setPrefWidth(windowWidth-90);
 
-            // initializeメソッドを呼び出し、windowWidthを渡す
-            initialize(windowWidth);
+            fxAnchorPane.setPrefWidth(windowWidth-90);            // AnchorPaneの設定(機能してなさそう)
+
+            initialize(windowWidth);             // initializeメソッドを呼び出し、windowWidthを渡す
+            updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
         });
 
         // ウィンドウの幅が変更された場合に改行位置を調節
