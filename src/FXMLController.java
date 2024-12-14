@@ -86,6 +86,8 @@ public class FXMLController {
         System.out.println(System.getProperty("user.dir"));
         Image image = new Image(getClass().getResourceAsStream("/lib/TaskAddingButtonImage.png"));
         ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
         fxTaskAddingButton.setGraphic(imageView);
     }
 
