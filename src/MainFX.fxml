@@ -24,7 +24,7 @@
       </ScrollPane>
       <HBox prefHeight="150.0" styleClass="custom-vbox">
          <children>
-            <Button mnemonicParsing="false" text="Button" />
+            <Button mnemonicParsing="false" text="Button" fx:id="fxTaskAddingButton"/>
             <TextField fx:id="fxTaskAddingField" promptText="タスクを追加" />
          </children>
       </HBox>

@@ -1,6 +1,7 @@
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,9 @@ public class FXMLController {
 
     @FXML
     private TextField fxTaskAddingField;
+
+    @FXML
+    private Button fxTaskAddingButton;
 
     private Stage stage;
     private List<CheckBox> checkBoxes = new ArrayList<>();
@@ -57,6 +63,7 @@ public class FXMLController {
             double newHeight = newValue.doubleValue();
             fxScrollPane.setPrefHeight(newHeight-windowHeightMargin);
         });
+
     }
 
     @FXML
@@ -74,6 +81,12 @@ public class FXMLController {
             addCheckBox(text, windowWidth);
             fxTaskAddingField.clear(); // テキストフィールドをクリア
         });
+
+        //タスク追加ボタンを画像に設定
+        System.out.println(System.getProperty("user.dir"));
+        Image image = new Image(getClass().getResourceAsStream("/lib/TaskAddingButtonImage.png"));
+        ImageView imageView = new ImageView(image);
+        fxTaskAddingButton.setGraphic(imageView);
     }
 
     private void addCheckBox(String text, double windowWidth){
