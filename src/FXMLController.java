@@ -78,17 +78,26 @@ public class FXMLController {
         // TextFieldにエンターキーが押されたときのイベントハンドラを設定
         fxTaskAddingField.setOnAction(event -> {
             String text = fxTaskAddingField.getText();
+            if(text.isEmpty()) return;
             addCheckBox(text, windowWidth);
             fxTaskAddingField.clear(); // テキストフィールドをクリア
         });
 
         //タスク追加ボタンを画像に設定
-        System.out.println(System.getProperty("user.dir"));
         Image image = new Image(getClass().getResourceAsStream("/lib/TaskAddingButtonImage.png"));
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(30);
         imageView.setFitWidth(30);
         fxTaskAddingButton.setGraphic(imageView);
+        fxTaskAddingButton.getStyleClass().add("custom-taskAddingButton");
+
+        // タスク追加ボタンにイベントハンドラを設定
+        fxTaskAddingButton.setOnAction(event->{
+            String text = fxTaskAddingField.getText();
+            if(text.isEmpty()) return;
+            addCheckBox(text, windowWidth);
+            fxTaskAddingField.clear(); // テキストフィールドをクリア
+        });
     }
 
     private void addCheckBox(String text, double windowWidth){

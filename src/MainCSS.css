@@ -33,3 +33,21 @@
 .custom-task:selected > .box > .mark{
     -fx-background-color: white;
 }
+
+/*タスク追加ボタンの設定*/
+.custom-taskAddingButton {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent; /* 枠線の色を透明に設定 */
+}
+
+.custom-taskAddingButton:hover {
+    -fx-background-color: lightgray; /* ホバー時の背景色を透明に設定 */
+}
+
+.custom-taskAddingButton:pressed {
+    -fx-background-color: rgb(145, 145, 145); /* クリック時の背景色を設定 */
+}
+
+.custom-taskAddingButton:focused {
+    -fx-border-color: transparent;
+}
