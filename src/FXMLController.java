@@ -63,7 +63,6 @@ public class FXMLController {
             double newHeight = newValue.doubleValue();
             fxScrollPane.setPrefHeight(newHeight-windowHeightMargin);
         });
-
     }
 
     @FXML
@@ -74,7 +73,7 @@ public class FXMLController {
         for(int i = 0; i < 10; i++){
             addCheckBox("task" + i, windowWidth);
         }
-
+        fxTaskAddingField.getStyleClass().add("custom-taskAddingField"); // styleClassの設定
         // TextFieldにエンターキーが押されたときのイベントハンドラを設定
         fxTaskAddingField.setOnAction(event -> {
             String text = fxTaskAddingField.getText();

@@ -51,3 +51,16 @@
 .custom-taskAddingButton:focused {
     -fx-border-color: transparent;
 }
+
+/*タスク追加フィールドの設定*/
+.custom-taskAddingField {
+    -fx-border-color: transparent; /* 枠線の色を透明に設定 */
+    -fx-background-color: transparent; /* 背景色を透明に設定 */
+    -fx-focus-color: transparent; /* フォーカス時の枠線を透明に設定 */
+}
+
+.custom-taskAddingField:focused {
+    -fx-border-color: transparent; /* フォーカス時の枠線を透明に設定 */
+    -fx-background-color: transparent; /* フォーカス時の背景色を透明に設定 */
+    -fx-focus-color: transparent; /* フォーカス時の枠線を透明に設定 */
+}
