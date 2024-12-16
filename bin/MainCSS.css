@@ -2,6 +2,11 @@
     -fx-alignment: center;
 }
 
+.custom-hbox{
+    -fx-alignment: center;
+    -fx-padding:10 0 10 0;
+}
+
 /*チェックボックスの設定*/
 .custom-task{
     -fx-background-color  : white;
@@ -63,4 +68,13 @@
     -fx-border-color: transparent; /* フォーカス時の枠線を透明に設定 */
     -fx-background-color: transparent; /* フォーカス時の背景色を透明に設定 */
     -fx-focus-color: transparent; /* フォーカス時の枠線を透明に設定 */
+}
+
+/*タスク追加Hboxの設定*/
+.custom-taskAddingLayout{
+    -fx-border-color: black; /* 枠線の色を設定 */
+    -fx-border-width: 1; /* 枠線の幅を設定 */
+    -fx-padding: 1; /* 内側の余白を設定 */
+    -fx-background-color: white; /* 背景色を設定 */
+    -fx-alignment: center;
 }

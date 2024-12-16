@@ -22,10 +22,15 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <HBox prefHeight="150.0" styleClass="custom-vbox">
+      <HBox prefHeight="120.0" styleClass="custom-hbox">
          <children>
-            <Button mnemonicParsing="false" fx:id="fxTaskAddingButton" styleClass="cutom-taskAddingButton"/>
-            <TextField fx:id="fxTaskAddingField" promptText="タスクを追加" styleClass="custom-taskAddingField"/>
+            <HBox styleClass="custom-taskAddingLayout">
+               <children>
+                  <Button fx:id="fxTaskAddingButton" mnemonicParsing="false" styleClass="cutom-taskAddingButton" />
+                  <!--TextFieldのwidthを画面のwidthと対応させる-->
+                  <TextField prefWidth="200" fx:id="fxTaskAddingField" promptText="タスクを追加" styleClass="custom-taskAddingField" />
+               </children>
+            </HBox>
          </children>
       </HBox>
    </children>
