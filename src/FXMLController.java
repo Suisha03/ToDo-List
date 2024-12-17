@@ -42,6 +42,7 @@ public class FXMLController {
         // Stageが表示された後にウィンドウサイズを取得
         stage.setOnShown(event -> {
             double windowWidth = stage.getWidth();
+            //System.out.println(windowWidth);
             // ScrollPaneの設定
             double windowHeight = stage.getHeight();
             fxScrollPane.setPrefSize(windowWidth-100,windowHeight-windowHeightMargin);
@@ -49,7 +50,6 @@ public class FXMLController {
             fxAnchorPane.setPrefWidth(windowWidth-90);            // AnchorPaneの設定(機能してなさそう)
 
             initialize(windowWidth);             // initializeメソッドを呼び出し、windowWidthを渡す
-            updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
         });
 
         // ウィンドウの幅が変更された場合に改行位置を調節
@@ -74,6 +74,7 @@ public class FXMLController {
             addCheckBox("task" + i, windowWidth);
         }
         fxTaskAddingField.getStyleClass().add("custom-taskAddingField"); // styleClassの設定
+        updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
         // TextFieldにエンターキーが押されたときのイベントハンドラを設定
         fxTaskAddingField.setOnAction(event -> {
             String text = fxTaskAddingField.getText();
@@ -99,6 +100,8 @@ public class FXMLController {
         });
     }
 
+    //以降は関数内容のみ
+
     private void addCheckBox(String text, double windowWidth){
         CheckBox checkBox = new CheckBox();
         checkBox.setText(text);
@@ -116,6 +119,8 @@ public class FXMLController {
         checkBox.setGraphic(hbox);
         checkBox.setText("");                // CheckBoxのテキストを空にする
         checkBox.setPadding(new Insets(0,0,0,5));  // CheckBoxの左側に余白を設定
+        
+       
 
         // Textノードにクリックイベントを設定し、CheckBoxの選択状態を変更しないようにする
         hbox.setOnMouseClicked(event -> {
@@ -124,6 +129,7 @@ public class FXMLController {
         });
 
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            //System.out.println("Observable: " + observable + ", Old Value: " + oldValue + ", New Value: " + newValue);
             if(newValue){
                 text.setStrikethrough(true);
                 text.setFill(Color.rgb(110, 108, 108)); // テキストの色を設定
@@ -135,13 +141,14 @@ public class FXMLController {
     }
 
     public void updateWrappingWidth(double windowWidth) {
-        int windowWidthMargin = 60;
+        int windowWidthMargin = 65;
+        //System.out.println(windowWidth);
         for(CheckBox checkBox : checkBoxes){
             HBox hbox = (HBox) checkBox.getGraphic();
             if(hbox != null){
                 Text text = (Text) hbox.getChildren().get(0);
                 text.setWrappingWidth(windowWidth - windowWidthMargin); // 自動改行のための幅を更新（余白を考慮）
-                checkBox.setPrefWidth(windowWidth - windowWidthMargin);
+                checkBox.setPrefWidth(windowWidth - windowWidthMargin+5);
             }   
         }
     }
