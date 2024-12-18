@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class FXMLController {
     private Button fxTaskAddingButton;
 
     private Stage stage;
-    private List<CheckBox> checkBoxes = new ArrayList<>();
+    private List<HBox> checkBoxes = new ArrayList<>();
 
     public void setStage(Stage stage){
         this.stage = stage;
@@ -103,12 +103,19 @@ public class FXMLController {
     //以降は関数内容のみ
 
     private void addCheckBox(String text, double windowWidth){
+        HBox hbox = new HBox();
         CheckBox checkBox = new CheckBox();
-        checkBox.setText(text);
         checkBox.getStyleClass().add("custom-task");  // styleClassの設定
-        checkBoxes.add(checkBox);
-        checkBoxContainer.getChildren().add(checkBox);
-        setupCheckBox(checkBox, windowWidth);           //CheckBoxのレイアウト設定
+        Label label = new Label();
+        label.setText(text);
+        hbox.getChildren().addAll(checkBox, label);
+        checkBoxes.add(hbox);
+
+        //ここからレイアウト設定
+        
+
+        
+        //setupCheckBox(checkBox, windowWidth);           //CheckBoxのレイアウト設定
     }
 
     public void setupCheckBox(CheckBox checkBox, double windowWidth){
@@ -119,8 +126,6 @@ public class FXMLController {
         checkBox.setGraphic(hbox);
         checkBox.setText("");                // CheckBoxのテキストを空にする
         checkBox.setPadding(new Insets(0,0,0,5));  // CheckBoxの左側に余白を設定
-        
-       
 
         // Textノードにクリックイベントを設定し、CheckBoxの選択状態を変更しないようにする
         hbox.setOnMouseClicked(event -> {
