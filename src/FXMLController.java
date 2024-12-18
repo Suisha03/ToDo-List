@@ -34,7 +34,7 @@ public class FXMLController {
     private Button fxTaskAddingButton;
 
     private Stage stage;
-    private List<HBox> checkBoxes = new ArrayList<>();
+    private List<HBox> checkBoxHboxList = new ArrayList<>();
 
     public void setStage(Stage stage){
         this.stage = stage;
@@ -55,7 +55,7 @@ public class FXMLController {
         // ウィンドウの幅が変更された場合に改行位置を調節
         stage.widthProperty().addListener((observable, oldValue, newValue) -> {
             double newWidth = newValue.doubleValue();
-            updateWrappingWidth(newWidth);
+            //updateWrappingWidth(newWidth);
         });
 
         // ウィンドウの高さが変更された場合にScrollPaneの高さを調節
@@ -74,7 +74,7 @@ public class FXMLController {
             addCheckBox("task" + i, windowWidth);
         }
         fxTaskAddingField.getStyleClass().add("custom-taskAddingField"); // styleClassの設定
-        updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
+        //updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
         // TextFieldにエンターキーが押されたときのイベントハンドラを設定
         fxTaskAddingField.setOnAction(event -> {
             String text = fxTaskAddingField.getText();
@@ -105,57 +105,35 @@ public class FXMLController {
     private void addCheckBox(String text, double windowWidth){
         HBox hbox = new HBox();
         CheckBox checkBox = new CheckBox();
-        checkBox.getStyleClass().add("custom-task");  // styleClassの設定
         Label label = new Label();
         label.setText(text);
+        label.setWrapText(true);
         hbox.getChildren().addAll(checkBox, label);
-        checkBoxes.add(hbox);
+        checkBoxHboxList.add(hbox);
 
         //ここからレイアウト設定
-        
-
-        
-        //setupCheckBox(checkBox, windowWidth);           //CheckBoxのレイアウト設定
-    }
-
-    public void setupCheckBox(CheckBox checkBox, double windowWidth){
-        Text text = new Text(checkBox.getText());
-        HBox hbox = new HBox(text);
+        checkBox.getStyleClass().add("custom-task");  // styleClassの設定
+        hbox.getStyleClass().add("custom-task-hbox");  // styleClassの設定
         hbox.setAlignment(Pos.CENTER_LEFT);
-        hbox.setPadding(new Insets(0,0,0,5));      //テキスト左側に余白を設定
-        checkBox.setGraphic(hbox);
-        checkBox.setText("");                // CheckBoxのテキストを空にする
-        checkBox.setPadding(new Insets(0,0,0,5));  // CheckBoxの左側に余白を設定
+        hbox.setPadding(new Insets(0,0,0,5));
 
-        // Textノードにクリックイベントを設定し、CheckBoxの選択状態を変更しないようにする
-        hbox.setOnMouseClicked(event -> {
-            // CheckBoxの選択状態を反転(クリックイベントを無効化したいため)
-            checkBox.setSelected(!checkBox.isSelected());
-        });
+
+        //CheckBox関係のクリックイベントを設定
+        Text checkBoxText = new Text(label.getText());
 
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             //System.out.println("Observable: " + observable + ", Old Value: " + oldValue + ", New Value: " + newValue);
             if(newValue){
-                text.setStrikethrough(true);
-                text.setFill(Color.rgb(110, 108, 108)); // テキストの色を設定
+                checkBoxText.setStrikethrough(true);
+                checkBoxText.setFill(Color.rgb(110, 108, 108)); // テキストの色を設定
             } else{
-                text.setStrikethrough(false);
-                text.setFill(Color.BLACK); // テキストの色を元に戻す
+                checkBoxText.setStrikethrough(false);
+                checkBoxText.setFill(Color.BLACK); // テキストの色を元に戻す
             }
         });
-    }
 
-    public void updateWrappingWidth(double windowWidth) {
-        int windowWidthMargin = 65;
-        //System.out.println(windowWidth);
-        for(CheckBox checkBox : checkBoxes){
-            HBox hbox = (HBox) checkBox.getGraphic();
-            if(hbox != null){
-                Text text = (Text) hbox.getChildren().get(0);
-                text.setWrappingWidth(windowWidth - windowWidthMargin); // 自動改行のための幅を更新（余白を考慮）
-                checkBox.setPrefWidth(windowWidth - windowWidthMargin+5);
-            }   
-        }
+        //checkBoxContainerに追加することで画面に表示
+        checkBoxContainer.getChildren().add(hbox);
     }
 
 }

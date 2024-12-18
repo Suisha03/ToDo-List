@@ -9,11 +9,11 @@
 
 /*チェックボックスの設定*/
 .custom-task{
-    -fx-background-color  : white;
+    -fx-background-color  : transparent;
     -fx-pref-height: 50px;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
-    -fx-border-color: rgb(64, 61, 61);
+    -fx-border-color: transparent;
 }
 
 /*チェックボックスのボックスの設定*/
@@ -36,6 +36,10 @@
 /*　チェックボックスのボックス内のチェックの設定 */ 
 .custom-task:selected > .box > .mark{
     -fx-background-color: white;
+}
+
+.custom-task-hbox{
+    -fx-border-color: black; /* 枠線の色を設定 */
 }
 
 /*タスク追加ボタンの設定*/
