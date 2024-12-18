@@ -120,7 +120,7 @@ public class FXMLController {
         checkBox.setText("");                // CheckBoxのテキストを空にする
         checkBox.setPadding(new Insets(0,0,0,5));  // CheckBoxの左側に余白を設定
         
-       
+       //aa
 
         // Textノードにクリックイベントを設定し、CheckBoxの選択状態を変更しないようにする
         hbox.setOnMouseClicked(event -> {
