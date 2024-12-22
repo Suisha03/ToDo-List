@@ -36,6 +36,8 @@ public class FXMLController {
     private Stage stage;
     private List<HBox> checkBoxHboxList = new ArrayList<>();
 
+    int CheckBoxWidthWrap = 60;
+
     public void setStage(Stage stage){
         this.stage = stage;
         int windowHeightMargin = 30;
@@ -108,10 +110,9 @@ public class FXMLController {
     private void addCheckBox(String text, double windowWidth){
         HBox hbox = new HBox();
         CheckBox checkBox = new CheckBox();
-        Label label = new Label();
-        label.setText(text);
-        label.setWrapText(true);
-        hbox.getChildren().addAll(checkBox, label);
+        Text textNode = new Text(text);
+        textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
+        hbox.getChildren().addAll(checkBox, textNode);
         checkBoxHboxList.add(hbox);
 
         //ここからレイアウト設定
@@ -119,21 +120,18 @@ public class FXMLController {
         hbox.getStyleClass().add("custom-task-hbox");  // styleClassの設定
         hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.setPadding(new Insets(0,0,0,5));
-        label.setPadding(new Insets(0,0,0,5));
-        label.getStyleClass().add("custom-checkBoxLabel-false");
+        textNode.getStyleClass().add("custom-checkbox-text");  // styleClassの設定
 
 
         //CheckBox関係のクリックイベントを設定
 
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            //System.out.println("Observable: " + observable + ", Old Value: " + oldValue + ", New Value: " + newValue);
             if(newValue){
-                label.getStyleClass().add("custom-checkBoxLabel-true");
-                label.getStyleClass().remove("custom-checkBoxLabel-false");
-
+                textNode.setStrikethrough(true);
+                textNode.setFill(Color.rgb(110, 108, 108)); // テキストの色を設定
             } else{
-                label.getStyleClass().add("custom-checkBoxLabel-false");
-                label.getStyleClass().remove("custom-checkBoxLabel-true");
+                textNode.setStrikethrough(false);
+                textNode.setFill(Color.BLACK); // テキストの色を元に戻す
             }
         });
 
@@ -143,9 +141,9 @@ public class FXMLController {
 
     private void setCheckBoxWidth(double windowWidth){
         for(HBox hbox : checkBoxHboxList){
-            hbox.setPrefWidth(windowWidth-30);
-            Label label = (Label) hbox.getChildren().get(1);
-            label.setPrefWidth(windowWidth-30);
+            hbox.setPrefWidth(windowWidth-CheckBoxWidthWrap+5);
+            Text textNode = (Text) hbox.getChildren().get(1);
+            textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
         }
     }
 
