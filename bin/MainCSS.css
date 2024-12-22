@@ -39,7 +39,10 @@
 }
 
 .custom-task-hbox{
-    -fx-border-color: black; /* 枠線の色を設定 */
+    -fx-background-color  : white;
+    -fx-background-radius: 50px;
+    -fx-border-color: Black;
+    -fx-border-radius: 50px;
 }
 
 /*タスク追加ボタンの設定*/
@@ -80,4 +83,15 @@
     -fx-padding: 1; /* 内側の余白を設定 */
     -fx-background-color: white; /* 背景色を設定 */
     -fx-alignment: center;
+}
+
+/*チェックボックスのlabelの設定*/
+.custom-checkBoxLabel-false{
+    -fx-text-fill: black;
+    -fx-strikethrough: false;
+}
+
+.custom-checkBoxLabel-true{
+    -fx-text-fill: rgb(110, 108, 108);
+    -fx-strikethrough: true;
 }

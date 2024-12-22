@@ -52,6 +52,12 @@ public class FXMLController {
             initialize(windowWidth);             // initializeメソッドを呼び出し、windowWidthを渡す
         });
 
+        // ウィンドウの幅が変更された場合に改行位置を調節
+        stage.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double newWidth = newValue.doubleValue();
+            setCheckBoxWidth(newWidth);
+        });
+
         // ウィンドウの高さが変更された場合にScrollPaneの高さを調節
         stage.heightProperty().addListener((observable, oldValue, newValue) -> {
             double newHeight = newValue.doubleValue();
@@ -67,6 +73,7 @@ public class FXMLController {
         for(int i = 0; i < 10; i++){
             addCheckBox("task" + i, windowWidth);
         }
+        setCheckBoxWidth(windowWidth);
         fxTaskAddingField.getStyleClass().add("custom-taskAddingField"); // styleClassの設定
         //updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
         // TextFieldにエンターキーが押されたときのイベントハンドラを設定
@@ -74,6 +81,7 @@ public class FXMLController {
             String text = fxTaskAddingField.getText();
             if(text.isEmpty()) return;
             addCheckBox(text, windowWidth);
+            setCheckBoxWidth(windowWidth);
             fxTaskAddingField.clear(); // テキストフィールドをクリア
         });
 
@@ -90,6 +98,7 @@ public class FXMLController {
             String text = fxTaskAddingField.getText();
             if(text.isEmpty()) return;
             addCheckBox(text, windowWidth);
+            setCheckBoxWidth(windowWidth);
             fxTaskAddingField.clear(); // テキストフィールドをクリア
         });
     }
@@ -110,24 +119,34 @@ public class FXMLController {
         hbox.getStyleClass().add("custom-task-hbox");  // styleClassの設定
         hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.setPadding(new Insets(0,0,0,5));
+        label.setPadding(new Insets(0,0,0,5));
+        label.getStyleClass().add("custom-checkBoxLabel-false");
 
 
         //CheckBox関係のクリックイベントを設定
-        Text checkBoxText = new Text(label.getText());
 
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             //System.out.println("Observable: " + observable + ", Old Value: " + oldValue + ", New Value: " + newValue);
             if(newValue){
-                checkBoxText.setStrikethrough(true);
-                checkBoxText.setFill(Color.rgb(110, 108, 108)); // テキストの色を設定
+                label.getStyleClass().add("custom-checkBoxLabel-true");
+                label.getStyleClass().remove("custom-checkBoxLabel-false");
+
             } else{
-                checkBoxText.setStrikethrough(false);
-                checkBoxText.setFill(Color.BLACK); // テキストの色を元に戻す
+                label.getStyleClass().add("custom-checkBoxLabel-false");
+                label.getStyleClass().remove("custom-checkBoxLabel-true");
             }
         });
 
         //checkBoxContainerに追加することで画面に表示
         checkBoxContainer.getChildren().add(hbox);
+    }
+
+    private void setCheckBoxWidth(double windowWidth){
+        for(HBox hbox : checkBoxHboxList){
+            hbox.setPrefWidth(windowWidth-30);
+            Label label = (Label) hbox.getChildren().get(1);
+            label.setPrefWidth(windowWidth-30);
+        }
     }
 
 }
