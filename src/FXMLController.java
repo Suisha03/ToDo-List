@@ -52,12 +52,6 @@ public class FXMLController {
             initialize(windowWidth);             // initializeメソッドを呼び出し、windowWidthを渡す
         });
 
-        // ウィンドウの幅が変更された場合に改行位置を調節
-        stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double newWidth = newValue.doubleValue();
-            //updateWrappingWidth(newWidth);
-        });
-
         // ウィンドウの高さが変更された場合にScrollPaneの高さを調節
         stage.heightProperty().addListener((observable, oldValue, newValue) -> {
             double newHeight = newValue.doubleValue();
