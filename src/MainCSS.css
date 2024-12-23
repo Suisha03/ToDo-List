@@ -9,11 +9,11 @@
 
 /*チェックボックスの設定*/
 .custom-task{
-    -fx-background-color  : white;
+    -fx-background-color  : transparent;
     -fx-pref-height: 50px;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
-    -fx-border-color: rgb(64, 61, 61);
+    -fx-border-color: transparent;
 }
 
 /*チェックボックスのボックスの設定*/
@@ -36,6 +36,13 @@
 /*　チェックボックスのボックス内のチェックの設定 */ 
 .custom-task:selected > .box > .mark{
     -fx-background-color: white;
+}
+
+.custom-task-hbox{
+    -fx-background-color  : white;
+    -fx-background-radius: 50px;
+    -fx-border-color: Black;
+    -fx-border-radius: 50px;
 }
 
 /*タスク追加ボタンの設定*/
@@ -76,4 +83,9 @@
     -fx-padding: 1; /* 内側の余白を設定 */
     -fx-background-color: white; /* 背景色を設定 */
     -fx-alignment: center;
+}
+
+/*チェックボックスのlabelの設定 機能していなさそう*/
+.custom-checkbox-text{
+    -fx-padding: 0 0 0 100;
 }
