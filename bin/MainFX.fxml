@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="95.0" prefWidth="227.0" styleClass="custom-vbox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLController">
+<VBox  prefWidth="227.0" styleClass="custom-vbox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLController">
    <stylesheets>
       <URL value="@MainCSS.css" />
    </stylesheets>
@@ -18,17 +18,12 @@
         <content>
           <AnchorPane fx:id="fxAnchorPane" minHeight="0.0" minWidth="0.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox>
                      <children>
                         <VBox fx:id="checkBoxContainer" />
-                        <TitledPane animated="false" text="untitled">
+                        <TitledPane animated="false" text="完了済みタスク">
                           <content>
-                            <AnchorPane minHeight="10.0" minWidth="0.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" text="Button" />
-                                    <Button mnemonicParsing="false" text="Button" />
-                                 </children>
-                              </AnchorPane>
+                            <AnchorPane minHeight="10.0" minWidth="0.0" />
                           </content>
                         </TitledPane>
                      </children>
