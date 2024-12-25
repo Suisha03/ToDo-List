@@ -33,6 +33,9 @@ public class FXMLController {
     @FXML
     private Button fxTaskAddingButton;
 
+    @FXML
+    private VBox FinishedTaskContainer;
+
     private Stage stage;
     private List<HBox> checkBoxHboxList = new ArrayList<>();
 
@@ -124,11 +127,17 @@ public class FXMLController {
 
 
         //CheckBox関係のクリックイベントを設定
-
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
                 textNode.setStrikethrough(true);
                 textNode.setFill(Color.rgb(110, 108, 108)); // テキストの色を設定
+
+                //タスクを削除
+                checkBoxContainer.getChildren().remove(hbox);
+                checkBoxHboxList.remove(hbox);
+
+                //完了済みタスクに飛ばす
+                FinishedTaskContainer.getChildren().add(hbox);
             } else{
                 textNode.setStrikethrough(false);
                 textNode.setFill(Color.BLACK); // テキストの色を元に戻す
