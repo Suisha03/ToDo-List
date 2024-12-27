@@ -21,7 +21,7 @@
                   <VBox>
                      <children>
                         <VBox fx:id="checkBoxContainer" />
-                        <TitledPane animated="false" text="完了済みタスク">
+                        <TitledPane animated="false" text="完了済みタスク" styleClass="custom-titledPane" expanded="false">
                           <content>
                             <AnchorPane minHeight="10.0" minWidth="0.0">
                               <children>

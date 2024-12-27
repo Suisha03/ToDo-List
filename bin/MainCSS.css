@@ -89,3 +89,19 @@
 .custom-checkbox-text{
     -fx-padding: 0 0 0 100;
 }
+
+/*タスク完了タブの設定*/
+.custom-titledPane{
+    -fx-padding: 10 10 10 0;
+    -fx-pref-width: 100%;
+}
+.custom-titledPane > .title{
+    -fx-pref-height: 30px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+.custom-titledPane > .content{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}

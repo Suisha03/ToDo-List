@@ -39,7 +39,7 @@ public class FXMLController {
     private Stage stage;
     private List<HBox> checkBoxHboxList = new ArrayList<>();
 
-    int CheckBoxWidthWrap = 60;
+    int CheckBoxWidthWrap = 75;
 
     public void setStage(Stage stage){
         this.stage = stage;
@@ -111,7 +111,7 @@ public class FXMLController {
     //以降は関数内容のみ
 
     private void addCheckBox(String text, double windowWidth){
-        HBox hbox = new HBox();
+        HBox hbox = new HBox(5);
         CheckBox checkBox = new CheckBox();
         Text textNode = new Text(text);
         textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
@@ -125,6 +125,8 @@ public class FXMLController {
         hbox.setPadding(new Insets(0,0,0,5));
         textNode.getStyleClass().add("custom-checkbox-text");  // styleClassの設定
 
+        // CheckBoxにマージンを設定
+        //HBox.setMargin(hbox, new Insets(100, 0, 100, 0));
 
         //CheckBox関係のクリックイベントを設定
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -134,10 +136,10 @@ public class FXMLController {
 
                 //タスクを削除
                 checkBoxContainer.getChildren().remove(hbox);
-                checkBoxHboxList.remove(hbox);
 
                 //完了済みタスクに飛ばす
                 FinishedTaskContainer.getChildren().add(hbox);
+                VBox.setMargin(hbox, new Insets(3, 0, 0, 3)); //マージンを再変更
             } else{
                 textNode.setStrikethrough(false);
                 textNode.setFill(Color.BLACK); // テキストの色を元に戻す
@@ -146,6 +148,7 @@ public class FXMLController {
 
         //checkBoxContainerに追加することで画面に表示
         checkBoxContainer.getChildren().add(hbox);
+        VBox.setMargin(hbox, new Insets(3, 0, 0, 5));
     }
 
     private void setCheckBoxWidth(double windowWidth){
