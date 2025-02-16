@@ -1,3 +1,4 @@
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.Timeline;
 
 public class FXMLController {
     @FXML
@@ -36,10 +38,14 @@ public class FXMLController {
     @FXML
     private VBox FinishedTaskContainer;
 
+    @FXML
+    private Timeline timeline;
+
     private Stage stage;
     private List<HBox> checkBoxHboxList = new ArrayList<>();
 
-    int CheckBoxWidthWrap = 75;
+    //個々の横幅変更でhboxの横幅も変わる
+    int CheckBoxWidthWrap = 125;
 
     public void setStage(Stage stage){
         this.stage = stage;
@@ -115,7 +121,8 @@ public class FXMLController {
         CheckBox checkBox = new CheckBox();
         Text textNode = new Text(text);
         textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
-        hbox.getChildren().addAll(checkBox, textNode);
+        Text timelabel = new Text("00:00:00");
+        hbox.getChildren().addAll(checkBox, textNode, timelabel);
         checkBoxHboxList.add(hbox);
 
         //ここからレイアウト設定
