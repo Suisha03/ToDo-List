@@ -1,3 +1,4 @@
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -17,7 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class FXMLController {
     @FXML
@@ -121,7 +122,7 @@ public class FXMLController {
         CheckBox checkBox = new CheckBox();
         Text textNode = new Text(text);
         textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
-        Text timelabel = new Text("00:00:00");
+        Text timelabel = new Text("00:00");
         hbox.getChildren().addAll(checkBox, textNode, timelabel);
         checkBoxHboxList.add(hbox);
 
@@ -135,7 +136,7 @@ public class FXMLController {
         // CheckBoxにマージンを設定
         //HBox.setMargin(hbox, new Insets(100, 0, 100, 0));
 
-        //CheckBox関係のクリックイベントを設定
+        //CheckBox関係のクリックイベントを設定(個々の部分クラスにまとめるとか無理？)
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
                 textNode.setStrikethrough(true);
@@ -150,6 +151,32 @@ public class FXMLController {
             } else{
                 textNode.setStrikethrough(false);
                 textNode.setFill(Color.BLACK); // テキストの色を元に戻す
+            }
+        });
+
+        // ストップウォッチのためのタイマーを設定
+        // 配列にしておかないとラムダ式内での変数の変更ができない
+        final boolean[] timelabelbool = {false};
+        final int[] seconds = {0};
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            seconds[0]++;
+            int minutes = seconds[0] / 60;
+            int remainingSeconds = seconds[0] % 60;
+            timelabel.setText(String.format("%02d:%02d", minutes, remainingSeconds));
+        }));
+        //無限にTimelineを繰り返せるようにする
+        timeline.setCycleCount(Timeline.INDEFINITE);
+
+        // timelabelにクリックイベントを設定
+        timelabel.setOnMouseClicked(event -> {
+            if(timelabelbool[0]){
+                timelabelbool[0] = false;
+                timelabel.setFill(Color.BLACK);
+                timeline.stop();
+            } else {
+                timelabelbool[0] = true;
+                timelabel.setFill(Color.RED);
+                timeline.play();
             }
         });
 
