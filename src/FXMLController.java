@@ -122,7 +122,8 @@ public class FXMLController {
         CheckBox checkBox = new CheckBox();
         Text textNode = new Text(text);
         textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
-        Text timelabel = new Text("00:00");
+        StopWatchButton timelabel = new StopWatchButton("00:00");
+        timelabel.tf.setPrefWidth(80);
         hbox.getChildren().addAll(checkBox, textNode, timelabel);
         checkBoxHboxList.add(hbox);
 
@@ -130,7 +131,7 @@ public class FXMLController {
         checkBox.getStyleClass().add("custom-task");  // styleClassの設定
         hbox.getStyleClass().add("custom-task-hbox");  // styleClassの設定
         hbox.setAlignment(Pos.CENTER_LEFT);
-        hbox.setPadding(new Insets(0,0,0,5));
+        hbox.setPadding(new Insets(0,5,0,5));
         textNode.getStyleClass().add("custom-checkbox-text");  // styleClassの設定
 
         // CheckBoxにマージンを設定
@@ -154,32 +155,6 @@ public class FXMLController {
             }
         });
 
-        // ストップウォッチのためのタイマーを設定
-        // 配列にしておかないとラムダ式内での変数の変更ができない
-        final boolean[] timelabelbool = {false};
-        final int[] seconds = {0};
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            seconds[0]++;
-            int minutes = seconds[0] / 60;
-            int remainingSeconds = seconds[0] % 60;
-            timelabel.setText(String.format("%02d:%02d", minutes, remainingSeconds));
-        }));
-        //無限にTimelineを繰り返せるようにする
-        timeline.setCycleCount(Timeline.INDEFINITE);
-
-        // timelabelにクリックイベントを設定
-        timelabel.setOnMouseClicked(event -> {
-            if(timelabelbool[0]){
-                timelabelbool[0] = false;
-                timelabel.setFill(Color.BLACK);
-                timeline.stop();
-            } else {
-                timelabelbool[0] = true;
-                timelabel.setFill(Color.RED);
-                timeline.play();
-            }
-        });
-
         //checkBoxContainerに追加することで画面に表示
         checkBoxContainer.getChildren().add(hbox);
         VBox.setMargin(hbox, new Insets(3, 0, 0, 5));
@@ -187,9 +162,45 @@ public class FXMLController {
 
     private void setCheckBoxWidth(double windowWidth){
         for(HBox hbox : checkBoxHboxList){
-            hbox.setPrefWidth(windowWidth-CheckBoxWidthWrap+5);
+            hbox.setPrefWidth(windowWidth-CheckBoxWidthWrap+100);
             Text textNode = (Text) hbox.getChildren().get(1);
             textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
+        }
+    }
+
+    //ストップウォッチボタンを追加
+    class StopWatchButton extends Button{
+        TextField tf = new TextField();
+        // 配列にしておかないとラムダ式内での変数の変更ができない
+        final boolean[] timelabelbool = {false};
+        // ストップウォッチのためのタイマーを設定
+        final int[] seconds = {0};
+        Timeline timeline;
+
+        public StopWatchButton(String text){
+            setText(text);
+            getChildren().add(tf);
+
+            timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+                seconds[0]++;
+                int minutes = seconds[0] / 60;
+                int remainingSeconds = seconds[0] % 60;
+                setText(String.format("%02d:%02d", minutes, remainingSeconds));
+            }));
+            //無限にTimelineを繰り返せるようにする
+            timeline.setCycleCount(Timeline.INDEFINITE);
+
+            setOnMouseClicked(event -> {
+                if(timelabelbool[0]){
+                    timelabelbool[0] = false;
+                    setStyle("-fx-text-fill: black;");
+                    timeline.stop();
+                } else {
+                    timelabelbool[0] = true;
+                    setStyle("-fx-text-fill: red;");
+                    timeline.play();
+                }
+            });
         }
     }
 
