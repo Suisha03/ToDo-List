@@ -152,6 +152,9 @@ public class FXMLController {
             } else{
                 textNode.setStrikethrough(false);
                 textNode.setFill(Color.BLACK); // テキストの色を元に戻す
+                FinishedTaskContainer.getChildren().remove(hbox);
+                checkBoxContainer.getChildren().add(hbox);
+                VBox.setMargin(hbox, new Insets(3, 0, 0, 3)); //マージンを再変更
             }
         });
 
