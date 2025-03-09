@@ -46,7 +46,8 @@ public class FXMLController {
     private List<HBox> checkBoxHboxList = new ArrayList<>();
 
     //個々の横幅変更でhboxの横幅も変わる
-    int CheckBoxWidthWrap = 125;
+    int CheckBoxWidthWrap = 45;
+    int TextNodeWidthWrap = 135;
 
     public void setStage(Stage stage){
         this.stage = stage;
@@ -121,7 +122,6 @@ public class FXMLController {
         HBox hbox = new HBox(5);
         CheckBox checkBox = new CheckBox();
         Text textNode = new Text(text);
-        textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
         StopWatchButton timelabel = new StopWatchButton("00:00");
         timelabel.tf.setPrefWidth(80);
         hbox.getChildren().addAll(checkBox, textNode, timelabel);
@@ -162,9 +162,10 @@ public class FXMLController {
 
     private void setCheckBoxWidth(double windowWidth){
         for(HBox hbox : checkBoxHboxList){
-            hbox.setPrefWidth(windowWidth-CheckBoxWidthWrap+100);
+            //ここがタスクの横幅ところっぽい
+            hbox.setPrefWidth(windowWidth-CheckBoxWidthWrap);
             Text textNode = (Text) hbox.getChildren().get(1);
-            textNode.setWrappingWidth(windowWidth - CheckBoxWidthWrap);
+            textNode.setWrappingWidth(windowWidth - TextNodeWidthWrap);
         }
     }
 
