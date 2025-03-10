@@ -25,6 +25,11 @@
     -fx-border-radius: 50px;
 }
 
+.custom-task:hover > .box{
+    -fx-background-color : rgba(0, 0, 0, 0.232);
+    -fx-border-width: 1px;
+}
+
 
 
 /*チェックボックスのチェックされたときのボックスの設定*/

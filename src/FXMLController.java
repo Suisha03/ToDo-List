@@ -99,7 +99,7 @@ public class FXMLController {
         });
 
         //タスク追加ボタンを画像に設定
-        Image image = new Image(getClass().getResourceAsStream("/lib/TaskAddingButtonImageCustom.png"));
+        Image image = new Image(getClass().getResourceAsStream("/lib/img/TaskAddingButtonImageCustom.png"));
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
