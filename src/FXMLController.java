@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -16,9 +17,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.util.Duration;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class FXMLController {
     @FXML
@@ -150,6 +154,9 @@ public class FXMLController {
                 //完了済みタスクに飛ばす
                 FinishedTaskContainer.getChildren().add(hbox);
                 VBox.setMargin(hbox, new Insets(3, 0, 0, 3)); //マージンを再変更
+
+                //音声を再生
+                playSound("/lib/sound/taskCompleteSound.mp3");
             } else{
                 textNode.setStrikethrough(false);
                 textNode.setFill(Color.BLACK); // テキストの色を元に戻す
@@ -172,6 +179,13 @@ public class FXMLController {
             Text textNode = (Text) hbox.getChildren().get(1);
             textNode.setWrappingWidth(windowWidth - TextNodeWidthWrap);
         }
+    }
+
+    // 音声を再生するメソッド
+    private void playSound(String soundFilePath) {
+        Media sound = new Media(new File(soundFilePath).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
     //ストップウォッチボタンを追加
