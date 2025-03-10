@@ -118,6 +118,7 @@ public class FXMLController {
 
     //以降は関数内容のみ
 
+    //CheckBoxを追加する関数
     private void addCheckBox(String text, double windowWidth){
         HBox hbox = new HBox(5);
         CheckBox checkBox = new CheckBox();
@@ -163,6 +164,7 @@ public class FXMLController {
         VBox.setMargin(hbox, new Insets(3, 0, 0, 5));
     }
 
+    //CheckBoxの幅を設定する関数
     private void setCheckBoxWidth(double windowWidth){
         for(HBox hbox : checkBoxHboxList){
             //ここがタスクの横幅ところっぽい
