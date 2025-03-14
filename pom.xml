@@ -40,9 +40,6 @@
                 </executions>
                 <configuration>
                     <mainClass>Main</mainClass>
-                    <modulePathElements>
-                        <modulePathElement>C:\Program Files\Java\javafx-sdk-21.0.2\lib</modulePathElement>
-                    </modulePathElements>
                 </configuration>
             </plugin>
         </plugins>

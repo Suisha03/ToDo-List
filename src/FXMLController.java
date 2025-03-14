@@ -20,9 +20,11 @@ import javafx.scene.control.Label;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URL;
 import javafx.util.Duration;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import java.net.URISyntaxException;
 
 public class FXMLController {
     @FXML
@@ -155,8 +157,8 @@ public class FXMLController {
                 FinishedTaskContainer.getChildren().add(hbox);
                 VBox.setMargin(hbox, new Insets(3, 0, 0, 3)); //マージンを再変更
 
-                //音声を再生
-                playSound("/lib/sound/taskCompleteSound.mp3");
+                //音声を再生(再生されない，原因不明)
+                //playSound("/lib/sound/taskCompleteSound.mp3");
             } else{
                 textNode.setStrikethrough(false);
                 textNode.setFill(Color.BLACK); // テキストの色を元に戻す
@@ -183,9 +185,40 @@ public class FXMLController {
 
     // 音声を再生するメソッド
     private void playSound(String soundFilePath) {
-        Media sound = new Media(new File(soundFilePath).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+        URL soundURL = getClass().getResource(soundFilePath);
+        if(soundURL != null){
+            try {
+                Media sound = new Media(soundURL.toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+
+                // MediaPlayerの状態を監視
+                mediaPlayer.setOnReady(() -> {
+                    System.out.println("Media is ready to play.");
+                    mediaPlayer.play();
+                });
+
+                mediaPlayer.setOnPlaying(() -> {
+                    System.out.println("Media is playing.");
+                });
+
+                mediaPlayer.setOnEndOfMedia(() -> {
+                    System.out.println("Media playback finished.");
+                    mediaPlayer.dispose();
+                });
+
+                mediaPlayer.setOnError(() -> {
+                    System.err.println("Media error occurred: " + mediaPlayer.getError());
+                });
+
+                System.out.println("音声を再生しました: " + soundFilePath);
+            } catch (URISyntaxException e) {
+                System.err.println("Invalid URI: " + soundURL);
+                e.printStackTrace();
+            }
+        }
+        else{
+            System.out.println("音声ファイルが見つかりません: " + soundFilePath);
+        }
     }
 
     //ストップウォッチボタンを追加
