@@ -25,6 +25,11 @@ import javafx.util.Duration;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.net.URISyntaxException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileReader;
 
 public class FXMLController {
     @FXML
@@ -92,6 +97,7 @@ public class FXMLController {
         for(int i = 0; i < 10; i++){
             addCheckBox("task" + i, windowWidth);
         }
+        SaveandLoadTasks.loadTasks();
         setCheckBoxWidth(windowWidth);
         fxTaskAddingField.getStyleClass().add("custom-taskAddingField"); // styleClassの設定
         //updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
@@ -183,7 +189,7 @@ public class FXMLController {
         }
     }
 
-    // 音声を再生するメソッド
+    // 音声を再生するメソッド(再生されない，原因不明，使用していない)
     private void playSound(String soundFilePath) {
         URL soundURL = getClass().getResource(soundFilePath);
         if(soundURL != null){
@@ -254,6 +260,42 @@ public class FXMLController {
                     timeline.play();
                 }
             });
+        }
+    }
+
+    class SaveandLoadTasks{
+        private String taskText;
+        private boolean taskStatus;
+        private int taskTime;
+
+        public SaveandLoadTasks(String taskText, boolean taskStatus, int taskTime){
+            this.taskText = taskText;
+            this.taskStatus = taskStatus;
+            this.taskTime = taskTime;
+        }
+
+        public void saveTasks(){
+            Gson gson = new Gson();
+            try(FileWriter writer = new FileWriter("tasksSaveData.json")){
+                gson.toJson(this, writer);
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+        
+        public static void loadTasks(){
+            Gson gson = new Gson();
+            try(FileReader reader = new FileReader("tasksSaveData.json")){
+                Type taskListType = new TypeToken<List<Task>>() {}.getType();
+                tasks = gson.fromJson(reader, taskListType);
+                // タスクをUIに反映する
+                for (Task task : tasks) {
+                    addCheckBox(task.getText(), task.isCompleted());
+                }
+            } catch(IOException e){
+                e.printStackTrace();
+                System.out.println("タスクの読み込みに失敗しました");
+            }
         }
     }
 
