@@ -29,6 +29,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileReader;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+
 
 public class FXMLController {
     @FXML
@@ -96,8 +99,8 @@ public class FXMLController {
         for(int i = 0; i < 10; i++){
             addCheckBox("task" + i, windowWidth);
         }
-        //SaveandLoadTasks saveAndLoadTasks = new SaveandLoadTasks();
-        //saveAndLoadTasks.loadTasks();
+        SaveandLoadTasks saveAndLoadTasks = new SaveandLoadTasks();
+        saveAndLoadTasks.loadTasks();
         setCheckBoxWidth(windowWidth);
         fxTaskAddingField.getStyleClass().add("custom-taskAddingField"); // styleClassの設定
         //updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
@@ -267,6 +270,9 @@ public class FXMLController {
         private String taskText;
         private boolean taskStatus;
         private int taskTime;
+
+        public SaveandLoadTasks(){
+        }
 
         public SaveandLoadTasks(String taskText, boolean taskStatus, int taskTime){
             this.taskText = taskText;
