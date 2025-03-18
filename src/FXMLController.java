@@ -99,8 +99,10 @@ public class FXMLController {
         for(int i = 0; i < 10; i++){
             addCheckBox("task" + i, windowWidth);
         }
-        SaveandLoadTasks saveAndLoadTasks = new SaveandLoadTasks();
-        saveAndLoadTasks.loadTasks();
+        Gson gson = new Gson();
+        gson.toJson(1);
+        //SaveandLoadTasks saveAndLoadTasks = new SaveandLoadTasks();
+        //saveAndLoadTasks.loadTasks();
         setCheckBoxWidth(windowWidth);
         fxTaskAddingField.getStyleClass().add("custom-taskAddingField"); // styleClassの設定
         //updateWrappingWidth(windowWidth);    // CheckBoxの自動改行のための幅を設定
