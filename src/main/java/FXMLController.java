@@ -294,10 +294,10 @@ public class FXMLController {
         public void loadTasks(){
             Gson gson = new Gson();
             try(FileReader reader = new FileReader("tasksSaveData.json")){
-                Type taskListType = new TypeToken<List<Task>>() {}.getType();
-                tasks = gson.fromJson(reader, taskListType);
+                Type taskListType = new TypeToken<List<String>>() {}.getType();
+                String tasks = gson.fromJson(reader, taskListType);
                 // タスクをUIに反映する
-                for (Task task : tasks) {
+                for (String task : tasks) {
                     addCheckBox(task.getText(), task.isCompleted());
                 }
             } catch(IOException e){
