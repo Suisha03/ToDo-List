@@ -31,6 +31,9 @@ import java.io.FileReader;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class FXMLController {
@@ -194,7 +197,7 @@ public class FXMLController {
         }
     }
 
-    // 音声を再生するメソッド(再生されない，原因不明，使用していない)
+    // 音声を再生するメソッド(再生されない，原因不明，使用していない)(ちゃんとmavenが設定でき無かったからだと思われる)
     private void playSound(String soundFilePath) {
         URL soundURL = getClass().getResource(soundFilePath);
         if(soundURL != null){
@@ -269,17 +272,10 @@ public class FXMLController {
     }
 
     class SaveandLoadTasks{
-        private String taskText;
-        private boolean taskStatus;
-        private int taskTime;
+        private Map<String, TaskData> taskMap = new HashMap<>(); // タスクのリスト
 
-        public SaveandLoadTasks(){
-        }
-
-        public SaveandLoadTasks(String taskText, boolean taskStatus, int taskTime){
-            this.taskText = taskText;
-            this.taskStatus = taskStatus;
-            this.taskTime = taskTime;
+        public SaveandLoadTasks(Map<String, TaskData> taskMap){
+            this.taskMap = taskMap;
         }
 
         public void saveTasks(){
@@ -304,6 +300,36 @@ public class FXMLController {
                 e.printStackTrace();
                 System.out.println("タスクの読み込みに失敗しました");
             }
+        }
+    }
+
+    class TaskData{
+        private String taskText;
+        private boolean taskStatus;
+        private int taskTime;
+        private String id;
+
+        public TaskData(String taskText, boolean taskStatus, int taskTime, String id){
+            this.taskText = taskText;
+            this.taskStatus = taskStatus;
+            this.taskTime = taskTime;
+            this.id = id;
+        }
+
+        public String getTaskText(){
+            return taskText;
+        }
+
+        public boolean getTaskStatus(){
+            return taskStatus;
+        }
+
+        public int getTaskTime(){
+            return taskTime;
+        }
+
+        public String getId(){
+            return id;
         }
     }
 
