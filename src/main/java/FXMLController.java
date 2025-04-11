@@ -1,5 +1,6 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -102,8 +103,6 @@ public class FXMLController {
         for(int i = 0; i < 10; i++){
             addCheckBox("task" + i, windowWidth);
         }
-        Gson gson = new Gson();
-        gson.toJson(1);
         //SaveandLoadTasks saveAndLoadTasks = new SaveandLoadTasks();
         //saveAndLoadTasks.loadTasks();
         setCheckBoxWidth(windowWidth);
@@ -281,20 +280,25 @@ public class FXMLController {
         public void saveTasks(){
             Gson gson = new Gson();
             try(FileWriter writer = new FileWriter("tasksSaveData.json")){
-                gson.toJson(this, writer);
+                //gson.toJson(this, writer);
+                for(TaskData values : taskMap.values()){
+                    // タスクのデータをJSON形式で保存
+                    writer.write(gson.toJson(values));
+                }
             } catch(IOException e){
                 e.printStackTrace();
             }
         }
         
-        public void loadTasks(){
+        public void loadTasks(double windowWidth){
             Gson gson = new Gson();
             try(FileReader reader = new FileReader("tasksSaveData.json")){
-                Type taskListType = new TypeToken<List<String>>() {}.getType();
-                String tasks = gson.fromJson(reader, taskListType);
+                Type type = new TypeToken<List<TaskData>>() {}.getType();
+                List<TaskData> taskData = gson.fromJson(reader, type);
                 // タスクをUIに反映する
-                for (String task : tasks) {
-                    addCheckBox(task.getText(), task.isCompleted());
+                for (TaskData task : taskData){
+                    taskMap.put(task.getId(), task);
+                    addCheckBox(task.getTaskText(), windowWidth);
                 }
             } catch(IOException e){
                 e.printStackTrace();
